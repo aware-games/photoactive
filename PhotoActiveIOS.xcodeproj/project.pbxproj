@@ -9,11 +9,27 @@
 /* Begin PBXBuildFile section */
 		5DDFC4A41B6D4BF10053CEBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4A31B6D4BF10053CEBA /* AppDelegate.swift */; };
 		5DDFC4A71B6D4BF10053CEBA /* PhotoActiveIOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4A51B6D4BF10053CEBA /* PhotoActiveIOS.xcdatamodeld */; };
-		5DDFC4A91B6D4BF10053CEBA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4A81B6D4BF10053CEBA /* ViewController.swift */; };
+		5DDFC4A91B6D4BF10053CEBA /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4A81B6D4BF10053CEBA /* MainMenuViewController.swift */; };
 		5DDFC4AC1B6D4BF10053CEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DDFC4AA1B6D4BF10053CEBA /* Main.storyboard */; };
 		5DDFC4AE1B6D4BF10053CEBA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DDFC4AD1B6D4BF10053CEBA /* Images.xcassets */; };
 		5DDFC4B11B6D4BF10053CEBA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DDFC4AF1B6D4BF10053CEBA /* LaunchScreen.xib */; };
 		5DDFC4BD1B6D4BF10053CEBA /* PhotoActiveIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4BC1B6D4BF10053CEBA /* PhotoActiveIOSTests.swift */; };
+		5DDFC4C71B6D541B0053CEBA /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4C61B6D541B0053CEBA /* InstructionsViewController.swift */; };
+		5DDFC4C91B6D64A80053CEBA /* CameraCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4C81B6D64A80053CEBA /* CameraCaptureViewController.swift */; };
+		75301F251B7205C200E047A4 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75301F241B7205C200E047A4 /* SwiftyJSON.swift */; };
+		75301F271B72096500E047A4 /* AsynServerPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75301F261B72096500E047A4 /* AsynServerPost.swift */; };
+		75301F291B720C4D00E047A4 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75301F281B720C4D00E047A4 /* ImageUtils.swift */; };
+		7537C6EB1B986DB200BE71DD /* NSDateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7537C6EA1B986DB200BE71DD /* NSDateExt.swift */; };
+		75464C831B734FCA002B359B /* ReviewCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75464C821B734FCA002B359B /* ReviewCaptureViewController.swift */; };
+		7548551B1B74928100828282 /* UIButtonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7548551A1B74928100828282 /* UIButtonExt.swift */; };
+		754942411B99A38E005F27E0 /* PostponeAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754942401B99A38D005F27E0 /* PostponeAlarmViewController.swift */; };
+		754AAA2E1B7B7B9300952FB3 /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754AAA2D1B7B7B9200952FB3 /* SurveyViewController.swift */; };
+		754C0F231B8733BD000CED1E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754C0F221B8733BD000CED1E /* Toast.swift */; };
+		754FD55A1B904CED0099FACD /* UIImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FD5591B904CED0099FACD /* UIImageExt.swift */; };
+		755622361B8DB74000A48B47 /* ProjectRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755622351B8DB74000A48B47 /* ProjectRegistrationViewController.swift */; };
+		7556552A1B8B3B970094DBDB /* EntryPortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755655291B8B3B970094DBDB /* EntryPortViewController.swift */; };
+		75797C0F1B8C770700AA9D5E /* UserRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75797C0E1B8C770600AA9D5E /* UserRegistrationViewController.swift */; };
+		7587B5C91B70ACB700061B1C /* SyncServerPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7587B5C81B70ACB700061B1C /* SyncServerPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,17 +43,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5DDFC49E1B6D4BF00053CEBA /* PhotoActiveIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoActiveIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DDFC49E1B6D4BF00053CEBA /* PhotoActive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoActive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDFC4A21B6D4BF10053CEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DDFC4A31B6D4BF10053CEBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DDFC4A61B6D4BF10053CEBA /* PhotoActiveIOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoActiveIOS.xcdatamodel; sourceTree = "<group>"; };
-		5DDFC4A81B6D4BF10053CEBA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5DDFC4A81B6D4BF10053CEBA /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		5DDFC4AB1B6D4BF10053CEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5DDFC4AD1B6D4BF10053CEBA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5DDFC4B01B6D4BF10053CEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		5DDFC4B61B6D4BF10053CEBA /* PhotoActiveIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoActiveIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DDFC4B61B6D4BF10053CEBA /* PhotoActiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoActiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DDFC4BB1B6D4BF10053CEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DDFC4BC1B6D4BF10053CEBA /* PhotoActiveIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoActiveIOSTests.swift; sourceTree = "<group>"; };
+		5DDFC4C61B6D541B0053CEBA /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
+		5DDFC4C81B6D64A80053CEBA /* CameraCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCaptureViewController.swift; sourceTree = "<group>"; };
+		75301F241B7205C200E047A4 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		75301F261B72096500E047A4 /* AsynServerPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynServerPost.swift; sourceTree = "<group>"; };
+		75301F281B720C4D00E047A4 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		7537C6EA1B986DB200BE71DD /* NSDateExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExt.swift; sourceTree = "<group>"; };
+		75464C821B734FCA002B359B /* ReviewCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCaptureViewController.swift; sourceTree = "<group>"; };
+		7548551A1B74928100828282 /* UIButtonExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonExt.swift; sourceTree = "<group>"; };
+		754942401B99A38D005F27E0 /* PostponeAlarmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostponeAlarmViewController.swift; sourceTree = "<group>"; };
+		754AAA2D1B7B7B9200952FB3 /* SurveyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
+		754C0F221B8733BD000CED1E /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		754FD5591B904CED0099FACD /* UIImageExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExt.swift; sourceTree = "<group>"; };
+		755622351B8DB74000A48B47 /* ProjectRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectRegistrationViewController.swift; path = ../../../../.Trash/ProjectRegistrationViewController.swift; sourceTree = "<group>"; };
+		755655291B8B3B970094DBDB /* EntryPortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPortViewController.swift; sourceTree = "<group>"; };
+		75797C0E1B8C770600AA9D5E /* UserRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationViewController.swift; sourceTree = "<group>"; };
+		7587B5C81B70ACB700061B1C /* SyncServerPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncServerPost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,12 +98,13 @@
 				5DDFC49F1B6D4BF00053CEBA /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		5DDFC49F1B6D4BF00053CEBA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5DDFC49E1B6D4BF00053CEBA /* PhotoActiveIOS.app */,
-				5DDFC4B61B6D4BF10053CEBA /* PhotoActiveIOSTests.xctest */,
+				5DDFC49E1B6D4BF00053CEBA /* PhotoActive.app */,
+				5DDFC4B61B6D4BF10053CEBA /* PhotoActiveTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,13 +112,25 @@
 		5DDFC4A01B6D4BF00053CEBA /* PhotoActiveIOS */ = {
 			isa = PBXGroup;
 			children = (
+				7587B5C71B70AC8300061B1C /* Utilities */,
 				5DDFC4A31B6D4BF10053CEBA /* AppDelegate.swift */,
-				5DDFC4A81B6D4BF10053CEBA /* ViewController.swift */,
+				5DDFC4A81B6D4BF10053CEBA /* MainMenuViewController.swift */,
 				5DDFC4AA1B6D4BF10053CEBA /* Main.storyboard */,
 				5DDFC4AD1B6D4BF10053CEBA /* Images.xcassets */,
 				5DDFC4AF1B6D4BF10053CEBA /* LaunchScreen.xib */,
 				5DDFC4A51B6D4BF10053CEBA /* PhotoActiveIOS.xcdatamodeld */,
 				5DDFC4A11B6D4BF00053CEBA /* Supporting Files */,
+				5DDFC4C61B6D541B0053CEBA /* InstructionsViewController.swift */,
+				5DDFC4C81B6D64A80053CEBA /* CameraCaptureViewController.swift */,
+				75464C821B734FCA002B359B /* ReviewCaptureViewController.swift */,
+				7548551A1B74928100828282 /* UIButtonExt.swift */,
+				754AAA2D1B7B7B9200952FB3 /* SurveyViewController.swift */,
+				755622351B8DB74000A48B47 /* ProjectRegistrationViewController.swift */,
+				755655291B8B3B970094DBDB /* EntryPortViewController.swift */,
+				75797C0E1B8C770600AA9D5E /* UserRegistrationViewController.swift */,
+				754FD5591B904CED0099FACD /* UIImageExt.swift */,
+				7537C6EA1B986DB200BE71DD /* NSDateExt.swift */,
+				754942401B99A38D005F27E0 /* PostponeAlarmViewController.swift */,
 			);
 			path = PhotoActiveIOS;
 			sourceTree = "<group>";
@@ -115,12 +160,24 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7587B5C71B70AC8300061B1C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7587B5C81B70ACB700061B1C /* SyncServerPost.swift */,
+				75301F241B7205C200E047A4 /* SwiftyJSON.swift */,
+				75301F261B72096500E047A4 /* AsynServerPost.swift */,
+				75301F281B720C4D00E047A4 /* ImageUtils.swift */,
+				754C0F221B8733BD000CED1E /* Toast.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5DDFC49D1B6D4BF00053CEBA /* PhotoActiveIOS */ = {
+		5DDFC49D1B6D4BF00053CEBA /* PhotoActive */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5DDFC4C01B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActiveIOS" */;
+			buildConfigurationList = 5DDFC4C01B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActive" */;
 			buildPhases = (
 				5DDFC49A1B6D4BF00053CEBA /* Sources */,
 				5DDFC49B1B6D4BF00053CEBA /* Frameworks */,
@@ -130,14 +187,14 @@
 			);
 			dependencies = (
 			);
-			name = PhotoActiveIOS;
+			name = PhotoActive;
 			productName = PhotoActiveIOS;
-			productReference = 5DDFC49E1B6D4BF00053CEBA /* PhotoActiveIOS.app */;
+			productReference = 5DDFC49E1B6D4BF00053CEBA /* PhotoActive.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5DDFC4B51B6D4BF10053CEBA /* PhotoActiveIOSTests */ = {
+		5DDFC4B51B6D4BF10053CEBA /* PhotoActiveTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5DDFC4C31B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActiveIOSTests" */;
+			buildConfigurationList = 5DDFC4C31B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActiveTests" */;
 			buildPhases = (
 				5DDFC4B21B6D4BF10053CEBA /* Sources */,
 				5DDFC4B31B6D4BF10053CEBA /* Frameworks */,
@@ -148,9 +205,9 @@
 			dependencies = (
 				5DDFC4B81B6D4BF10053CEBA /* PBXTargetDependency */,
 			);
-			name = PhotoActiveIOSTests;
+			name = PhotoActiveTests;
 			productName = PhotoActiveIOSTests;
-			productReference = 5DDFC4B61B6D4BF10053CEBA /* PhotoActiveIOSTests.xctest */;
+			productReference = 5DDFC4B61B6D4BF10053CEBA /* PhotoActiveTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -164,6 +221,7 @@
 				TargetAttributes = {
 					5DDFC49D1B6D4BF00053CEBA = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = XKX2544RX6;
 					};
 					5DDFC4B51B6D4BF10053CEBA = {
 						CreatedOnToolsVersion = 6.4;
@@ -184,8 +242,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5DDFC49D1B6D4BF00053CEBA /* PhotoActiveIOS */,
-				5DDFC4B51B6D4BF10053CEBA /* PhotoActiveIOSTests */,
+				5DDFC49D1B6D4BF00053CEBA /* PhotoActive */,
+				5DDFC4B51B6D4BF10053CEBA /* PhotoActiveTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,9 +273,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DDFC4A91B6D4BF10053CEBA /* ViewController.swift in Sources */,
+				754C0F231B8733BD000CED1E /* Toast.swift in Sources */,
+				7548551B1B74928100828282 /* UIButtonExt.swift in Sources */,
+				5DDFC4A91B6D4BF10053CEBA /* MainMenuViewController.swift in Sources */,
+				755622361B8DB74000A48B47 /* ProjectRegistrationViewController.swift in Sources */,
 				5DDFC4A71B6D4BF10053CEBA /* PhotoActiveIOS.xcdatamodeld in Sources */,
+				75301F291B720C4D00E047A4 /* ImageUtils.swift in Sources */,
+				5DDFC4C71B6D541B0053CEBA /* InstructionsViewController.swift in Sources */,
 				5DDFC4A41B6D4BF10053CEBA /* AppDelegate.swift in Sources */,
+				75464C831B734FCA002B359B /* ReviewCaptureViewController.swift in Sources */,
+				75797C0F1B8C770700AA9D5E /* UserRegistrationViewController.swift in Sources */,
+				7537C6EB1B986DB200BE71DD /* NSDateExt.swift in Sources */,
+				5DDFC4C91B6D64A80053CEBA /* CameraCaptureViewController.swift in Sources */,
+				754942411B99A38E005F27E0 /* PostponeAlarmViewController.swift in Sources */,
+				75301F251B7205C200E047A4 /* SwiftyJSON.swift in Sources */,
+				7587B5C91B70ACB700061B1C /* SyncServerPost.swift in Sources */,
+				754FD55A1B904CED0099FACD /* UIImageExt.swift in Sources */,
+				754AAA2E1B7B7B9300952FB3 /* SurveyViewController.swift in Sources */,
+				7556552A1B8B3B970094DBDB /* EntryPortViewController.swift in Sources */,
+				75301F271B72096500E047A4 /* AsynServerPost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +308,7 @@
 /* Begin PBXTargetDependency section */
 		5DDFC4B81B6D4BF10053CEBA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5DDFC49D1B6D4BF00053CEBA /* PhotoActiveIOS */;
+			target = 5DDFC49D1B6D4BF00053CEBA /* PhotoActive */;
 			targetProxy = 5DDFC4B71B6D4BF10053CEBA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -346,9 +420,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PhotoActiveIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SERVER_URL = "http://192.168.1.62:8080";
 			};
 			name = Debug;
 		};
@@ -356,9 +435,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PhotoActiveIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SERVER_URL = "https://red-league-92510.appspot.com";
 			};
 			name = Release;
 		};
@@ -408,21 +492,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5DDFC4C01B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActiveIOS" */ = {
+		5DDFC4C01B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActive" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5DDFC4C11B6D4BF10053CEBA /* Debug */,
 				5DDFC4C21B6D4BF10053CEBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		5DDFC4C31B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActiveIOSTests" */ = {
+		5DDFC4C31B6D4BF10053CEBA /* Build configuration list for PBXNativeTarget "PhotoActiveTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5DDFC4C41B6D4BF10053CEBA /* Debug */,
 				5DDFC4C51B6D4BF10053CEBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
