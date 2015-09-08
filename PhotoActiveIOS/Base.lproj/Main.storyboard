@@ -293,12 +293,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a time to remind me of taking a photo" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJP-xE-Pvc">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a time to remind me of taking a photo" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJP-xE-Pvc">
                                 <rect key="frame" x="28" y="60" width="544" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="03V-kl-4yA">
+                                <rect key="frame" x="28" y="121" width="544" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="463053504.91822499">
+                                    <!--2015-09-04 09:58:24 +0000-->
+                                </date>
+                            </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W60-li-DtR">
                                 <rect key="frame" x="225" y="323" width="150" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -307,7 +313,7 @@
                                     <constraint firstAttribute="height" constant="60" id="f3e-DY-L3q"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Submit">
+                                <state key="normal" title="Postpone">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -323,15 +329,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="onPostponeBtnPressed:" destination="k3j-Ea-Qei" eventType="touchUpInside" id="Ggp-85-tFt"/>
                                     <action selector="submitProjectID:" destination="k3j-Ea-Qei" eventType="touchUpInside" id="1RK-rT-lV7"/>
                                 </connections>
                             </button>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="03V-kl-4yA">
-                                <rect key="frame" x="28" y="121" width="544" height="162"/>
-                                <date key="date" timeIntervalSinceReferenceDate="463053504.91822499">
-                                    <!--2015-09-04 09:58:24 +0000-->
-                                </date>
-                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
@@ -347,6 +348,9 @@
                             <constraint firstItem="pJP-xE-Pvc" firstAttribute="leading" secondItem="In3-Sr-lwZ" secondAttribute="leadingMargin" constant="12" id="unk-cz-JSA"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="alarmPostponePicker" destination="03V-kl-4yA" id="8Md-5q-g7M"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k3j-Ea-Qei" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -410,7 +414,7 @@
                                 <rect key="frame" x="34" y="88" width="162" height="424"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Very happy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdn-9e-DEl">
-                                        <rect key="frame" x="38" y="115" width="86" height="21"/>
+                                        <rect key="frame" x="38" y="128" width="86" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -422,7 +426,7 @@
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not happy at all" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nC-0M-ys9">
-                                        <rect key="frame" x="20" y="289" width="122" height="21"/>
+                                        <rect key="frame" x="20" y="274" width="122" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -430,11 +434,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="6nC-0M-ys9" firstAttribute="top" secondItem="U3u-6d-F7f" secondAttribute="bottom" constant="62" id="0Ph-db-aSo"/>
+                                    <constraint firstItem="6nC-0M-ys9" firstAttribute="top" secondItem="U3u-6d-F7f" secondAttribute="bottom" constant="47" id="0Ph-db-aSo"/>
                                     <constraint firstAttribute="centerX" secondItem="hdn-9e-DEl" secondAttribute="centerX" id="JEU-mR-krN"/>
                                     <constraint firstAttribute="centerX" secondItem="U3u-6d-F7f" secondAttribute="centerX" id="LpW-bW-wZe"/>
                                     <constraint firstAttribute="centerX" secondItem="6nC-0M-ys9" secondAttribute="centerX" id="Nei-EA-RPk"/>
-                                    <constraint firstItem="U3u-6d-F7f" firstAttribute="top" secondItem="hdn-9e-DEl" secondAttribute="bottom" constant="61" id="fTP-CJ-vuu"/>
+                                    <constraint firstItem="U3u-6d-F7f" firstAttribute="top" secondItem="hdn-9e-DEl" secondAttribute="bottom" constant="48" id="fTP-CJ-vuu"/>
                                     <constraint firstAttribute="centerY" secondItem="U3u-6d-F7f" secondAttribute="centerY" id="ftf-tR-Pad"/>
                                     <constraint firstAttribute="trailing" secondItem="U3u-6d-F7f" secondAttribute="trailing" constant="24" id="twJ-gp-WhK"/>
                                     <constraint firstAttribute="width" constant="162" id="uNw-4w-72b"/>

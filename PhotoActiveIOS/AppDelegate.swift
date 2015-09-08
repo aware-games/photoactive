@@ -93,6 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			case "POSTPONE_ACTION":
 				let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 				let initialViewController = mainStoryboard.instantiateViewControllerWithIdentifier("PostponeAlarm") as! PostponeAlarmViewController
+				initialViewController.alarmText = notification.alertBody
 				window? = UIWindow(frame: UIScreen.mainScreen().bounds)
 				window?.rootViewController = initialViewController
 				window?.makeKeyAndVisible()

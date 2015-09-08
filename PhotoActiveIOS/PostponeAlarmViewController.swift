@@ -9,6 +9,9 @@
 import UIKit
 
 class PostponeAlarmViewController: UIViewController {
+	@IBOutlet weak var alarmPostponePicker: UIDatePicker!
+
+	var alarmText: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +23,40 @@ class PostponeAlarmViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+	@IBAction func onPostponeBtnPressed(sender: UIButton) {
+		let id = 1
+		let newAlarmTime = alarmPostponePicker.date
+		let now = NSDate()
+
+		if newAlarmTime.isLessThanDate(now) {
+			newAlarmTime.addDays(1)
+		}
+
+		let notification = UILocalNotification()
+		notification.alertBody = alarmText != nil && !alarmText!.isEmpty ? alarmText! : "Please take a photo"
+		notification.alertAction = "open"
+		notification.fireDate = newAlarmTime
+		notification.soundName = UILocalNotificationDefaultSoundName
+		notification.userInfo = [ID: id]
+		notification.category = "REMINDER_CATEGORY"
+		UIApplication.sharedApplication().scheduleLocalNotification(notification)
+
+		displayDialog("Alert postponed") {
+			exit(0)
+		}
+	}
+
+	func displayDialog(msg: String, withClosure block: (() -> Void)?) {
+		var alert = UIAlertController(title: "Information", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
+			alert.dismissViewControllerAnimated(true, completion: nil)
+			if block != nil {
+				block!()
+			}
+		}))
+		presentViewController(alert, animated: true, completion: nil)
+	}
 
     /*
     // MARK: - Navigation
