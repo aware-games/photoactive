@@ -26,7 +26,7 @@ class EntryPortViewController: UIViewController {
 				}
 				else {
 					if result == PHOTO_LIBRARY_NOT_AVAILABLE {
-						self.displayAlert("Not authorized to access photos, exiting...") {
+						self.displayAlert("Not authorized to access photos, app will exit.") {
 							exit(0)
 						}
 					}

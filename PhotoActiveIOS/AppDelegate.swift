@@ -20,8 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		for notification in application.scheduledLocalNotifications {
 			let n = notification as! UILocalNotification
 			let info = n.userInfo as! [String : AnyObject]
-			let endDateTimeStamp = info[END_DATE] as! NSNumber
-			if endDateTimeStamp != 0 {
+			if let endDateTimeStamp = info[END_DATE] as? NSNumber {
 				let endDate = NSDate(timeIntervalSince1970: endDateTimeStamp.doubleValue / 1000)
 				endDate.addDays(1)
 				let now = NSDate()

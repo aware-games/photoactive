@@ -30,7 +30,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 
 		getInAppSurveys()
 		getSurveyAlarms()
-//		checkIfFinished()
+		checkIfFinished()
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,11 +86,17 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		let posting = AsyncServerPost(url: GET_IN_APP_SURVEYS_URL, json: json, cookie: getSessionCookie(),
 			successHandler: { data, cookie in
 				let path = DOCUMENTS_DIR.stringByAppendingPathComponent(IAS_FILE)
-				data.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
+				var error: NSError?
+				let success = data.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
+
+				if !success {
+					NSLog("Error: Failed to store in-app survey data. \(error)")
+					self.displayAlert("Could not save vital data to file.")
+				}
 			},
 			errorHandler: { errorCode, data in
-				NSLog("Failed to fetch in-app surveys JSON.")
-				self.displayAlert("Could not store vital data.")
+				NSLog("Error: Failed to fetch in-app surveys JSON.")
+				self.displayAlert("Could not fetch in-app survey data.")
 		})
 		posting.execute()
 	}
@@ -105,7 +111,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				
 				if !success {
 					NSLog("Error: Failed to store survey alarm data. \(error)")
-					self.displayAlert("Could not store vital data.")
+					self.displayAlert("Could not save vital data to file.")
 				}
 
 				if let dataFromString = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
@@ -116,7 +122,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				}
 				else {
 					NSLog("Error: Failed to create survey alarms. Not able to create NSData object from string.")
-					self.displayAlert("Could not create survey alarms.")
+					self.displayAlert("Failed to create reminder alarms.")
 				}
 			},
 			errorHandler: { errorCode, data in
@@ -134,7 +140,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 					let result = JSON(data: dataFromString)
 					let isFinished = result[IS_FINISHED].boolValue
 					if isFinished {
-						self.displayNeutralDialog("You have already finished participating in this project, good bye")
+						self.displayNeutralDialog("You have already finished participating in this project. Thanks for sharing your time and input.")
 					}
 				}
 			},
@@ -183,6 +189,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		let repeatDaily = data[REPEAT_DAILY].boolValue
 		let startDate = NSDate(timeIntervalSince1970: data[START_DATE].doubleValue / 1000)
 		let endDateTimeStamp = data[END_DATE].numberValue
+		let endDate = NSDate(timeIntervalSince1970: endDateTimeStamp.doubleValue / 1000)
 
 		let calendar = NSCalendar.currentCalendar()
 		let startComp = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: startDate)
@@ -235,17 +242,20 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				return
 			}
 
-			let notification = UILocalNotification()
-			notification.alertBody = alarmText.isEmpty ? "Please take a photo" : alarmText
-			notification.alertAction = "open"
-			notification.fireDate = alarmTime
-			notification.soundName = UILocalNotificationDefaultSoundName
-			notification.userInfo = [ID: i, END_DATE: endDateTimeStamp]
-			notification.category = "REMINDER_CATEGORY"
-			if repeatDaily {
-				notification.repeatInterval = .CalendarUnitDay
+			endDate.addDays(1)
+			if now.isLessThanDate(endDate) {
+				let notification = UILocalNotification()
+				notification.alertBody = alarmText.isEmpty ? "Please take a photo" : alarmText
+				notification.alertAction = "open"
+				notification.fireDate = alarmTime
+				notification.soundName = UILocalNotificationDefaultSoundName
+				notification.userInfo = [ID: i, END_DATE: endDateTimeStamp, REPEAT_DAILY: repeatDaily]
+				notification.category = "REMINDER_CATEGORY"
+				if repeatDaily {
+					notification.repeatInterval = .CalendarUnitDay
+				}
+				UIApplication.sharedApplication().scheduleLocalNotification(notification)
 			}
-			UIApplication.sharedApplication().scheduleLocalNotification(notification)
 		}
 	}
 
@@ -304,8 +314,11 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 					})
 				}
 				else {
-					NSLog("Error: Failed to save photo to album. %@", error.localizedDescription)
-					self.loadIndicator!.stopAnimating()
+					NSOperationQueue.mainQueue().addOperationWithBlock({
+						NSLog("Error: Failed to save photo to album. %@", error.localizedDescription)
+						self.displayAlert("Could not save photo to album, please try again.")
+						self.loadIndicator!.stopAnimating()
+					})
 				}
 		})
 	}

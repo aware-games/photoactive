@@ -25,7 +25,7 @@ class PostponeAlarmViewController: UIViewController {
     }
 
 	@IBAction func onPostponeBtnPressed(sender: UIButton) {
-		let id = 1
+		let id = arc4random()
 		let newAlarmTime = alarmPostponePicker.date
 		let now = NSDate()
 
@@ -38,17 +38,17 @@ class PostponeAlarmViewController: UIViewController {
 		notification.alertAction = "open"
 		notification.fireDate = newAlarmTime
 		notification.soundName = UILocalNotificationDefaultSoundName
-		notification.userInfo = [ID: id]
+		notification.userInfo = [ID: Int(id)]
 		notification.category = "REMINDER_CATEGORY"
 		UIApplication.sharedApplication().scheduleLocalNotification(notification)
 
-		displayDialog("Alert postponed") {
+		displayDialog("Reminder saved") {
 			exit(0)
 		}
 	}
 
 	func displayDialog(msg: String, withClosure block: (() -> Void)?) {
-		var alert = UIAlertController(title: "Information", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		var alert = UIAlertController(title: "Attention", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {

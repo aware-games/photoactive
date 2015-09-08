@@ -425,7 +425,7 @@
                                             <action selector="sliderValueChanged:" destination="dvm-JT-XV0" eventType="valueChanged" id="csQ-YG-6ka"/>
                                         </connections>
                                     </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not happy at all" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nC-0M-ys9">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not at all happy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nC-0M-ys9">
                                         <rect key="frame" x="20" y="274" width="122" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -502,17 +502,17 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3n-GX-A4c">
                                         <rect key="frame" x="8" y="0.0" width="552" height="496"/>
-                                        <string key="text">To use the PhotoActive smartphone application, use these instructions.
+                                        <mutableString key="text">To use the PhotoActive smartphone application, use these instructions.
 
 1) After downloading and installing this application (which you should have done by now) you can start taking pictures by pressing "Take photo" on the start screen.
 
-2) The camera screen opens which allows you to take a photo. Press the blue circle to capture a photo. After this a preview of the photo is displayed. If you like you can discard it and take a new photo or approve it and progress to the next step.
+2) The camera screen opens which allows you to take a photo. Press the circle to capture a photo. After this a preview of the photo is displayed. If you like you can discard it and take a new photo or approve it and progress to the next step.
 
 3) An in-app survey opens where you answer a question by using the slider under the question. Emoticons display your slider value selection. This step can be omitted if the researcher maintaining this project has specified so.
 
 4) The photo and the survey answer is sent to the PhotoActive server and you can either continue taking more photos or going to the PhotoActive web interface and answer another survey that the reseracher has specified.
 
-5) Continue following these steps until the PhotoActive project is concluded or whenever you don't want to submit anymore photos to this project. A "Submit all answers"-button on the web interface lets you finish your participation in the project at any time.</string>
+5) Continue following these steps until the PhotoActive project is concluded or whenever you don't want to submit anymore photos to this project. A "Submit all answers"-button on the web interface lets you finish your participation in the project at any time.</mutableString>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

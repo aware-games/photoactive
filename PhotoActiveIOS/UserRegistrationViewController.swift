@@ -79,7 +79,7 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 				}
 			},
 			errorHandler: { errorCode, data in
-				let msg = self.login ? "Incorrect email/password." : "Email already registered."
+				let msg = self.login ? "Email / password not valid, please try again." : "Email already in use, please try again."
 				self.displayAlert(msg) {
 					self.loadIndicator?.stopAnimating()
 				}
@@ -96,7 +96,7 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 
 	func updateUITexts() {
 		if login {
-			headerText.text = "Login to PhotoActive"
+			headerText.text = "Login to access PhotoActive"
 			registerBtn.setTitle("Login", forState: UIControlState.Normal)
 			switchText.text = "Don't have an account?"
 			switchBtn.setTitle("Register here.", forState: UIControlState.Normal)

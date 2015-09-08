@@ -27,34 +27,6 @@ class SurveyViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-		if pictureName == nil {
-			NSLog("Error: Could not start SurveyViewController, pictureName not set.")
-			displayAlert("Picture not found.") {
-				self.navigationController?.popToRootViewControllerAnimated(true)
-			}
-			return
-		}
-
-		let inAppSurveysString = getInAppSurveys()
-		if (inAppSurveysString == nil || inAppSurveysString!.isEmpty) {
-			NSLog("Error: Could not start SurveyViewController, in app surveys are empty or nil.")
-			displayAlert("In app surveys syntax invalid.") {
-				self.navigationController?.popToRootViewControllerAnimated(true)
-			}
-			return
-		}
-
-		if let dataFromString = inAppSurveysString?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
-			inAppSurveys = JSON(data: dataFromString)[IN_APP_SURVEYS]
-		}
-		if (inAppSurveys == nil) {
-			NSLog("Error: Could not start SurveyViewController, in app surveys object could not be created.")
-			displayAlert("In app surveys syntax invalid.") {
-				self.navigationController?.popToRootViewControllerAnimated(true)
-			}
-			return
-		}
-
 		loadIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
 		loadIndicator!.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
 		loadIndicator!.center = self.view.center
@@ -67,10 +39,39 @@ class SurveyViewController: UIViewController {
 
 		slider.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
 
+		if pictureName == nil {
+			NSLog("Error: Could not start SurveyViewController, pictureName not set.")
+			displayAlert("Could not open in-app survey, parameter \"pictureName\" not set.") {
+				self.navigationController?.popToRootViewControllerAnimated(true)
+			}
+			return
+		}
+		
+		let inAppSurveysString = getInAppSurveys()
+		if (inAppSurveysString == nil || inAppSurveysString!.isEmpty) {
+			NSLog("Error: Could not start SurveyViewController, in app surveys are empty or nil.")
+			displayAlert("Could not open in-app survey, survey data is corrupt.") {
+				self.navigationController?.popToRootViewControllerAnimated(true)
+			}
+			return
+		}
+		
+		if let dataFromString = inAppSurveysString?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+			inAppSurveys = JSON(data: dataFromString)[IN_APP_SURVEYS]
+		}
+		if (inAppSurveys == nil) {
+			NSLog("Error: Could not start SurveyViewController, in app surveys object could not be created.")
+			displayAlert("Could not open in-app survey, survey data is corrupt.") {
+				self.navigationController?.popToRootViewControllerAnimated(true)
+			}
+			return
+		}
+
 		if !updateUI() {
 			NSLog("Warning: Could not start SurveyViewController, first survey has faulty JSON.")
-			submitImageAndAnswer(nil, answer: nil)
-			navigationController?.popToRootViewControllerAnimated(true)
+			submitImageAndAnswer(nil, answer: nil) {
+				navigationController?.popToRootViewControllerAnimated(true)
+			}
 		}
     }
 
@@ -93,10 +94,10 @@ class SurveyViewController: UIViewController {
 	@IBAction func submitAppAnswer() {
 		let answer = Int(slider.value)
 		let iasurveyID = inAppSurveys[currentSurvey][ID].numberValue
-		submitImageAndAnswer(iasurveyID, answer: answer)
+		submitImageAndAnswer(iasurveyID, answer: answer, withClosure: nil)
 	}
 
-	func submitImageAndAnswer(iasurveyID: NSNumber?, answer: Int?) {
+	func submitImageAndAnswer(iasurveyID: NSNumber?, answer: Int?, withClosure block: (() -> Void)?) {
 		loadIndicator?.startAnimating()
 
 		let projectID = getProjectID()
@@ -120,7 +121,11 @@ class SurveyViewController: UIViewController {
 		if answer != nil {
 			json[ANSWER] = JSON(answer!)
 		}
-		let posting = AsyncServerPost(url: SUBMIT_APP_ANSWER_URL, json: json, cookie: cookie,
+
+		let photoOnly = iasurveyID != nil && answer != nil
+		let url = photoOnly ? SUBMIT_PIC_URL : SUBMIT_APP_ANSWER_URL
+
+		let posting = AsyncServerPost(url: url, json: json, cookie: cookie,
 			successHandler: { data, cookie in
 				NSOperationQueue.mainQueue().addOperationWithBlock({
 					self.loadIndicator?.stopAnimating()
@@ -131,8 +136,9 @@ class SurveyViewController: UIViewController {
 			errorHandler: { errorCode, data in
 				NSOperationQueue.mainQueue().addOperationWithBlock({
 					self.loadIndicator?.stopAnimating()
-					NSLog("Failed to submit photo and survey answer. Code = \(errorCode), message = \(data)")
-					self.displayUploadAlert("Failed to submit photo and survey answer.")
+					let msgEnd = photoOnly ? "photo" : "photo and survey answer"
+					NSLog("Failed to submit \(msgEnd). Code = \(errorCode), message = \(data)")
+					self.displayUploadAlert("Could not to submit \(msgEnd).")
 				})
 		})
 		posting.execute()
@@ -189,7 +195,9 @@ class SurveyViewController: UIViewController {
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {
-				block!()
+				NSOperationQueue.mainQueue().addOperationWithBlock({
+					block!()
+				})
 			}
 		}))
 		presentViewController(alert, animated: true, completion: nil)
