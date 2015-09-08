@@ -64,25 +64,28 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 		let json = JSON([USERNAME: username, PASSWORD: password])
 		let posting = AsyncServerPost(url: url, json: json,
 			successHandler: { data, cookie in
-				let path = DOCUMENTS_DIR.stringByAppendingPathComponent(SC_FILE)
-				var error: NSError?
-				let success = cookie!.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: &error)
-				if !success {
-					NSLog("Error: Failed to store session cookie. \(error)")
-					self.displayAlert("Error saving vital data. Error code: \(error?.code)") {
-						self.loadIndicator?.stopAnimating()
+				NSOperationQueue.mainQueue().addOperationWithBlock({
+					let path = DOCUMENTS_DIR.stringByAppendingPathComponent(SC_FILE)
+					var error: NSError?
+					let success = cookie!.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: &error)
+					if !success {
+						NSLog("Error: Failed to store session cookie. \(error)")
+						self.displayAlert("Error saving vital data. Error code: \(error?.code)") {
+							self.loadIndicator?.stopAnimating()
+						}
 					}
-				}
-				else {
-					self.loadIndicator?.stopAnimating()
-					self.performSegueWithIdentifier("MainMenu2Segue", sender: self)
-				}
+					else {
+						self.loadIndicator?.stopAnimating()
+						self.performSegueWithIdentifier("MainMenu2Segue", sender: self)
+					}
+				})
 			},
 			errorHandler: { errorCode, data in
-				let msg = self.login ? "Email / password not valid, please try again." : "Email already in use, please try again."
-				self.displayAlert(msg) {
+				NSOperationQueue.mainQueue().addOperationWithBlock({
+					let msg = self.login ? "Email / password not valid, please try again." : "Email already in use, please try again."
+					self.displayAlert(msg, withClosure: nil)
 					self.loadIndicator?.stopAnimating()
-				}
+				})
 		})
 		
 		loadIndicator?.startAnimating()

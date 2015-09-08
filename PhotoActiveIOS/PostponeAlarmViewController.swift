@@ -42,9 +42,11 @@ class PostponeAlarmViewController: UIViewController {
 		notification.category = "REMINDER_CATEGORY"
 		UIApplication.sharedApplication().scheduleLocalNotification(notification)
 
-		displayDialog("Reminder saved") {
-			exit(0)
-		}
+		NSOperationQueue.mainQueue().addOperationWithBlock({
+			self.displayDialog("Reminder saved") {
+				exit(0)
+			}
+		})
 	}
 
 	func displayDialog(msg: String, withClosure block: (() -> Void)?) {

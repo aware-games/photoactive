@@ -91,12 +91,16 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 
 				if !success {
 					NSLog("Error: Failed to store in-app survey data. \(error)")
-					self.displayAlert("Could not save vital data to file.")
+					NSOperationQueue.mainQueue().addOperationWithBlock({
+						self.displayAlert("Could not save vital data to file.")
+					})
 				}
 			},
 			errorHandler: { errorCode, data in
 				NSLog("Error: Failed to fetch in-app surveys JSON.")
-				self.displayAlert("Could not fetch in-app survey data.")
+				NSOperationQueue.mainQueue().addOperationWithBlock({
+					self.displayAlert("Could not fetch in-app survey data.")
+				})
 		})
 		posting.execute()
 	}
@@ -111,7 +115,9 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				
 				if !success {
 					NSLog("Error: Failed to store survey alarm data. \(error)")
-					self.displayAlert("Could not save vital data to file.")
+					NSOperationQueue.mainQueue().addOperationWithBlock({
+						self.displayAlert("Could not save vital data to file.")
+					})
 				}
 
 				if let dataFromString = data.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
@@ -122,12 +128,16 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				}
 				else {
 					NSLog("Error: Failed to create survey alarms. Not able to create NSData object from string.")
-					self.displayAlert("Failed to create reminder alarms.")
+					NSOperationQueue.mainQueue().addOperationWithBlock({
+						self.displayAlert("Failed to create reminder alarms.")
+					})
 				}
 			},
 			errorHandler: { errorCode, data in
 				NSLog("Failed to fetch survey alarms.")
-				self.displayAlert("Could not fetch survey alarm data.")
+				NSOperationQueue.mainQueue().addOperationWithBlock({
+					self.displayAlert("Could not fetch survey alarm data.")
+				})
 		})
 		posting.execute()
 	}
@@ -140,7 +150,9 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 					let result = JSON(data: dataFromString)
 					let isFinished = result[IS_FINISHED].boolValue
 					if isFinished {
-						self.displayNeutralDialog("You have already finished participating in this project. Thanks for sharing your time and input.")
+						NSOperationQueue.mainQueue().addOperationWithBlock({
+							self.displayNeutralDialog("You have already finished participating in this project. Thanks for sharing your time and input.")
+						})
 					}
 				}
 			},
@@ -291,7 +303,9 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 	func addNewAssetWithImage(image: UIImage, toAlbum album: PHAssetCollection) {
 		photoLibrary.performChanges( {
 			// Show indicator
-			self.loadIndicator!.startAnimating()
+			NSOperationQueue.mainQueue().addOperationWithBlock({
+				self.loadIndicator!.startAnimating()
+			})
 
 			// Rotate image
 			let img = self.fixOrientation(image)
@@ -351,7 +365,9 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		}
 		else {
 			NSLog("Error: Could not open camera, not available.")
-			displayAlert("Could not open camera.")
+			NSOperationQueue.mainQueue().addOperationWithBlock({
+				self.displayAlert("Could not open camera.")
+			})
 		}
 	}
 }
