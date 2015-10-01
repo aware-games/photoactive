@@ -50,7 +50,7 @@ class PostponeAlarmViewController: UIViewController {
 	}
 
 	func displayDialog(msg: String, withClosure block: (() -> Void)?) {
-		var alert = UIAlertController(title: "Attention", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Attention", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {

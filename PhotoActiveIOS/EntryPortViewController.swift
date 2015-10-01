@@ -103,7 +103,7 @@ class EntryPortViewController: UIViewController {
 	}
 
 	func displayAlert(msg: String, withClosure block: (() -> Void)?) {
-		var alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {
@@ -114,8 +114,8 @@ class EntryPortViewController: UIViewController {
 	}
 
 	func getProjectID() -> String {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(P_FILE)
-		let projectID = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(P_FILE).path!
+		let projectID = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if projectID != nil {
 			return projectID!
 		}
@@ -125,8 +125,8 @@ class EntryPortViewController: UIViewController {
 	}
 	
 	func getSessionCookie() -> String {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(SC_FILE)
-		let cookie = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(SC_FILE).path!
+		let cookie = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if cookie != nil {
 			return cookie!
 		}

@@ -14,6 +14,6 @@ extension CALayer {
 	}
 
 	func borderUIColor() -> UIColor {
-		return UIColor(CGColor: self.borderColor)!
+		return UIColor(CGColor: self.borderColor!)
 	}
 }

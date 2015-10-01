@@ -106,7 +106,7 @@ class SurveyViewController: UIViewController {
 		let requestOptions = PHImageRequestOptions()
 		requestOptions.synchronous = true // block further execution until we have our base64-encoded string
 		PHImageManager.defaultManager().requestImageDataForAsset(asset, options: requestOptions, resultHandler: { data, dataUTI, orientation, info in
-			let base64 = data.base64EncodedStringWithOptions(nil)
+			let base64 = data!.base64EncodedStringWithOptions([])
 			picEnc = base64
 		})
 		let tf = NSDateFormatter()
@@ -145,8 +145,8 @@ class SurveyViewController: UIViewController {
 	}
 
 	func getProjectID() -> String {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(P_FILE)
-		let projectID = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(P_FILE).path!
+		let projectID = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if projectID != nil {
 			return projectID!
 		}
@@ -156,8 +156,8 @@ class SurveyViewController: UIViewController {
 	}
 	
 	func getSessionCookie() -> String {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(SC_FILE)
-		let cookie = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(SC_FILE).path!
+		let cookie = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if cookie != nil {
 			return cookie!
 		}
@@ -167,8 +167,8 @@ class SurveyViewController: UIViewController {
 	}
 
 	func getInAppSurveys() -> String? {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(IAS_FILE)
-		let inAppSurveys = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(IAS_FILE).path!
+		let inAppSurveys = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if inAppSurveys != nil {
 			return inAppSurveys
 		}
@@ -178,7 +178,7 @@ class SurveyViewController: UIViewController {
 	}
 
 	func displayUploadAlert(msg: String) {
-		var alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "Retry", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			self.submitAppAnswer()
@@ -191,7 +191,7 @@ class SurveyViewController: UIViewController {
 	}
 
 	func displayAlert(msg: String, withClosure block: (() -> Void)?) {
-		var alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {

@@ -49,7 +49,7 @@ class ReviewCaptureViewController: UIViewController {
 			
 			// Get a placeholder for the new asset and add it to the album editing request
 			let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
-			albumChangeRequest.addAssets([assetPlaceholder])
+			albumChangeRequest!.addAssets([assetPlaceholder] as! NSFastEnumeration)
 			},
 			completionHandler: { success, error in
 				if success {
@@ -58,7 +58,7 @@ class ReviewCaptureViewController: UIViewController {
 					})
 				}
 				else {
-					NSLog("Error: Failed to save photo to album. %@", error.localizedDescription)
+					NSLog("Error: Failed to save photo to album. %@", error!.localizedDescription)
 					self.navigationController?.popViewControllerAnimated(true)
 				}
 		})

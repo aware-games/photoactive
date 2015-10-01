@@ -10,9 +10,9 @@ import UIKit
 
 extension String {
     func split(splitter: String) -> Array<String> {
-        let regEx = NSRegularExpression(pattern: splitter, options: NSRegularExpressionOptions(), error: nil)
+        let regEx = try? NSRegularExpression(pattern: splitter, options: NSRegularExpressionOptions())
         let stop = "<SomeStringThatYouDoNotExpectToOccurInSelf>"
-        let modifiedString = regEx?.stringByReplacingMatchesInString(self, options: NSMatchingOptions(), range: NSMakeRange(0, count(self)), withTemplate: stop)
+        let modifiedString = regEx?.stringByReplacingMatchesInString(self, options: NSMatchingOptions(), range: NSMakeRange(0, self.characters.count), withTemplate: stop)
         return modifiedString!.componentsSeparatedByString(stop)
     }
 }
@@ -53,9 +53,9 @@ class SyncServerPost : NSObject {
     
     func sendJSON(json: JSON) {
 		UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        let postData: String = json.rawString(encoding: NSUTF8StringEncoding, options: nil)!
+        let postData: String = json.rawString(NSUTF8StringEncoding, options: [])!
         let request = NSMutableURLRequest(URL: NSURL(string: self.url)!)
-		var semaphore = dispatch_semaphore_create(0)
+		let semaphore = dispatch_semaphore_create(0)
 
         request.HTTPMethod = POST_METHOD
         request.setValue(JSON_MIME_TYPE, forHTTPHeaderField: CONTENT_TYPE)
@@ -65,14 +65,14 @@ class SyncServerPost : NSObject {
 			data, response, error in
 
 			if error != nil {
-				self.errorHandler(errorCode: error.code, data: error.localizedDescription)
+				self.errorHandler(errorCode: error!.code, data: error!.localizedDescription)
 				UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 				return
 			}
 
 			let response = response as! NSHTTPURLResponse
 			let ninjaCookie = SyncServerPost.getNinjaCookieFromResponse(response)
-			let responseString = SyncServerPost.convertResponseDataToString(data)
+			let responseString = SyncServerPost.convertResponseDataToString(data!)
 
 			if response.statusCode == OK {
 				self.successHandler(data: responseString, cookie: ninjaCookie)

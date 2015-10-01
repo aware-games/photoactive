@@ -35,10 +35,10 @@ class ImageUtils {
 	/**
 	Calculate an inSampleSize for use in an options object when decoding bitmaps using the decode* methods from iOSBitmapFactory. This implementation calculates the closest inSampleSize that will result in the final decoded bitmap having a width and height equal to or larger than the requested width and height. This implementation does not ensure a power of 2 is returned for inSampleSize which can be faster when decoding, but results in a larger bitmap which isn't as useful for caching purposes.
 	 
-	:param: options	An options object with out* params already populated (run through a decode* method with inJustDecodeBounds==true
-	:param: reqWidth	The requested width of the resulting bitmap
-	:param: reqHeight	The requested height of the resulting bitmap
-	:returns:	The value to be used for inSampleSize
+	- parameter options:	An options object with out* params already populated (run through a decode* method with inJustDecodeBounds==true
+	- parameter reqWidth:	The requested width of the resulting bitmap
+	- parameter reqHeight:	The requested height of the resulting bitmap
+	- returns:	The value to be used for inSampleSize
 	*/
 	class func calculateInSampleSize(options: option, reqWidth: Int, reqHeight: Int) -> Int {
 		// Raw height and width of image
@@ -72,9 +72,9 @@ class ImageUtils {
 	/**
 	Rotate an image if required.
 	
-	:param: img
-	:param: angle
-	:returns:
+	- parameter img:
+	- parameter angle:
+	- returns:
 	*/
 	class func rotateImageIfRequired(img: AVAsset, angle: Int) -> AVAsset {
 		// Detect rotation

@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-		for notification in application.scheduledLocalNotifications {
-			let n = notification as! UILocalNotification
+		for notification in application.scheduledLocalNotifications! {
+			let n = notification 
 			let info = n.userInfo as! [String : AnyObject]
 			if let endDateTimeStamp = info[END_DATE] as? NSNumber {
 				let endDate = NSDate(timeIntervalSince1970: endDateTimeStamp.doubleValue / 1000)
@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		reminderCategory.identifier = "REMINDER_CATEGORY"
 		reminderCategory.setActions([takePhotoAction, postponeAction], forContext: .Default)
 
-		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Sound, categories: Set([reminderCategory])))
+		application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: Set([reminderCategory])))
         return true
     }
 
@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "fi.awaregames.ios.PhotoActiveIOS" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -122,7 +122,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("PhotoActiveIOS.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+			try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+		} catch var error1 as NSError {
+			error = error1
             coordinator = nil
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -134,7 +137,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
-        }
+        } catch {
+			fatalError()
+		}
         
         return coordinator
     }()
@@ -155,12 +160,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
-            }
+            if moc.hasChanges {
+				do {
+					try moc.save()
+				} catch let error1 as NSError {
+					error = error1
+					// Replace this implementation with code to handle the error appropriately.
+					// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+					NSLog("Unresolved error \(error), \(error!.userInfo)")
+					abort()
+				}
+			}
         }
     }
 
@@ -171,8 +181,9 @@ let SC_FILE = "sc"
 let IAS_FILE = "ias"
 let ALARM_FILE = "alarm"
 
-let APP_DIRS: [String]? = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String]
-let DOCUMENTS_DIR = APP_DIRS![0]
+//let APP_DIRS = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+let APP_DIRS = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .AllDomainsMask)
+let DOCUMENTS_DIR = APP_DIRS[0]
 
 let NO_ERROR = -1
 let PHOTO_LIBRARY_NOT_AVAILABLE = 1

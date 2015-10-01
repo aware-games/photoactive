@@ -62,7 +62,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 	}
 
 	func displayAlert(msg: String, withClosure block: (() -> Void)?) {
-		var alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {
@@ -73,7 +73,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 	}
 
 	func displayNeutralDialog(msg: String) {
-		var alert = UIAlertController(title: "Attention", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Attention", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			exit(0)
@@ -85,15 +85,18 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		let json = JSON([PROJECT_ID: getProjectID()])
 		let posting = AsyncServerPost(url: GET_IN_APP_SURVEYS_URL, json: json, cookie: getSessionCookie(),
 			successHandler: { data, cookie in
-				let path = DOCUMENTS_DIR.stringByAppendingPathComponent(IAS_FILE)
-				var error: NSError?
-				let success = data.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
-
-				if !success {
+				let path = DOCUMENTS_DIR.URLByAppendingPathComponent(IAS_FILE).path!
+				do {
+					try data.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+				}
+				catch (let error as NSError) {
 					NSLog("Error: Failed to store in-app survey data. \(error)")
 					NSOperationQueue.mainQueue().addOperationWithBlock({
 						self.displayAlert("Could not save vital data to file.")
 					})
+				}
+				catch {
+					fatalError()
 				}
 			},
 			errorHandler: { errorCode, data in
@@ -109,9 +112,18 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		let json = JSON([PROJECT_ID: getProjectID()])
 		let posting = AsyncServerPost(url: GET_SURVEY_ALARMS_URL, json: json, cookie: getSessionCookie(),
 			successHandler: { data, cookie in
-				let path = DOCUMENTS_DIR.stringByAppendingPathComponent(ALARM_FILE)
+				let path = DOCUMENTS_DIR.URLByAppendingPathComponent(ALARM_FILE).path!
 				var error: NSError?
-				let success = data.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: &error)
+				let success: Bool
+				do {
+					try data.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+					success = true
+				} catch let error1 as NSError {
+					error = error1
+					success = false
+				} catch {
+					fatalError()
+				}
 				
 				if !success {
 					NSLog("Error: Failed to store survey alarm data. \(error)")
@@ -163,8 +175,8 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 	}
 
 	func getProjectID() -> String {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(P_FILE)
-		let projectID = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(P_FILE).path!
+		let projectID = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if projectID != nil {
 			return projectID!
 		}
@@ -174,8 +186,8 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 	}
 
 	func getSessionCookie() -> String {
-		let path = DOCUMENTS_DIR.stringByAppendingPathComponent(SC_FILE)
-		let cookie = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(SC_FILE).path!
+		let cookie = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
 		if cookie != nil {
 			return cookie!
 		}
@@ -204,7 +216,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		let endDate = NSDate(timeIntervalSince1970: endDateTimeStamp.doubleValue / 1000)
 
 		let calendar = NSCalendar.currentCalendar()
-		let startComp = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: startDate)
+		let startComp = calendar.components([.Year, .Month, .Day], fromDate: startDate)
 		let startYear = startComp.year
 		let startMonth = startComp.month
 		let startDay = startComp.day
@@ -213,13 +225,13 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		for var i = 0; i < length; i++ {
 			let time = NSDate(timeIntervalSince1970: timesData[i].doubleValue / 1000)
 			let cal = NSCalendar.currentCalendar()
-			let com = cal.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: time)
+			let com = cal.components([.Hour, .Minute], fromDate: time)
 			let timeHour = com.hour - 2 // FIXME
 			let timeMin = com.minute
 
 			// Set the alarm to start at provided time (approximate)
 			let alarmCal = NSCalendar.currentCalendar()
-			var alarmCom = alarmCal.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitSecond | .CalendarUnitNanosecond, fromDate: NSDate())
+			var alarmCom = alarmCal.components([.Year, .Month, .Day, .Hour, .Minute, .Second, .Nanosecond], fromDate: NSDate())
 			alarmCom.year = startYear
 			alarmCom.month = startMonth
 			alarmCom.day = startDay
@@ -234,7 +246,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 
 			// If alarm is set to repeat, move start date to today or tomorrow, depending on whether today's alarm has passed or not
 			if repeatDaily && alarmTime.isLessThanDate(now) {
-				alarmCom = alarmCal.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitSecond | .CalendarUnitNanosecond, fromDate: NSDate())
+				alarmCom = alarmCal.components([.Year, .Month, .Day, .Hour, .Minute, .Second, .Nanosecond], fromDate: NSDate())
 				alarmCom.hour = timeHour
 				alarmCom.minute = timeMin
 				alarmCom.second = 0
@@ -264,7 +276,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				notification.userInfo = [ID: i, END_DATE: endDateTimeStamp, REPEAT_DAILY: repeatDaily]
 				notification.category = "REMINDER_CATEGORY"
 				if repeatDaily {
-					notification.repeatInterval = .CalendarUnitDay
+					notification.repeatInterval = .Day
 				}
 				UIApplication.sharedApplication().scheduleLocalNotification(notification)
 			}
@@ -273,17 +285,15 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 
 	// MARK - Take photo
 
-	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+	func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
 
 		let image: AnyObject? = info[UIImagePickerControllerOriginalImage]
-		let metaData = info[UIImagePickerControllerMediaMetadata] as! [NSObject : AnyObject]
+//		let metaData = info[UIImagePickerControllerMediaMetadata] as! [NSObject : AnyObject]
 		
-		if var img = image as? UIImage {
+		if let img = image as? UIImage {
 			let fetch = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.AlbumRegular, options: nil)
-			if fetch != nil {
-				if let album = fetch.firstObject as? PHAssetCollection {
-					addNewAssetWithImage(img, toAlbum: album)
-				}
+			if let album = fetch.firstObject as? PHAssetCollection {
+				addNewAssetWithImage(img, toAlbum: album)
 			}
 		}
 
@@ -318,8 +328,8 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 
 			// Get a placeholder for the new asset and add it to the album editing request
 			let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
-			albumChangeRequest.addAssets([assetPlaceholder])
-			self.pictureName = assetPlaceholder.localIdentifier
+			albumChangeRequest!.addAssets([assetPlaceholder!])
+			self.pictureName = assetPlaceholder!.localIdentifier
 			},
 			completionHandler: { success, error in
 				if success {
@@ -329,7 +339,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 				}
 				else {
 					NSOperationQueue.mainQueue().addOperationWithBlock({
-						NSLog("Error: Failed to save photo to album. %@", error.localizedDescription)
+						NSLog("Error: Failed to save photo to album. %@", error!.localizedDescription)
 						self.displayAlert("Could not save photo to album, please try again.")
 						self.loadIndicator!.stopAnimating()
 					})

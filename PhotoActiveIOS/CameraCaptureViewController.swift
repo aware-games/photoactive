@@ -43,7 +43,7 @@ class CameraCaptureViewController: UIViewController {
 		// If there no capture device was found, display an error message and go back
 		if captureDevice == nil {
 			NSLog("Error: No capture device found")
-			var alert = UIAlertController(title: "Error", message: "Could not open camera", preferredStyle: UIAlertControllerStyle.Alert)
+			let alert = UIAlertController(title: "Error", message: "Could not open camera", preferredStyle: UIAlertControllerStyle.Alert)
 			alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 				// Go back to the previous view controller
 				navigationController?.popViewControllerAnimated(true)
@@ -64,7 +64,7 @@ class CameraCaptureViewController: UIViewController {
 		// Get the new view controller using segue.destinationViewController.
 		// Pass the selected object to the new view controller.
 		if segue.identifier == "ReviewCaptureSegue" {
-			let destController = segue.destinationViewController as? ReviewCaptureViewController
+//			let destController = segue.destinationViewController as? ReviewCaptureViewController
 			
 		}
 	}
@@ -72,15 +72,15 @@ class CameraCaptureViewController: UIViewController {
 	func beginSession() {
 		configureDevice()
 
-		var err: NSError? = nil
-		captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
-
-		if err != nil {
-			NSLog("Error: \(err?.localizedDescription)")
+		do {
+			try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
+		}
+		catch {
+			NSLog("Error: \(error)")
 		}
 
 		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		self.view.layer.addSublayer(previewLayer)
+		self.view.layer.addSublayer(previewLayer!)
 		previewLayer?.frame = self.view.layer.frame
 
 		captureSession.startRunning()
@@ -88,7 +88,10 @@ class CameraCaptureViewController: UIViewController {
 
 	func configureDevice() {
 		if let device = captureDevice {
-			device.lockForConfiguration(nil)
+			do {
+				try device.lockForConfiguration()
+			} catch _ {
+			}
 			device.focusMode = .AutoFocus
 			device.unlockForConfiguration()
 		}
@@ -96,7 +99,8 @@ class CameraCaptureViewController: UIViewController {
 
 	func updateDeviceSettings(focusValue: Float, isoValue: Float) {
 		if let device = captureDevice {
-			if device.lockForConfiguration(nil) {
+			do {
+				try device.lockForConfiguration()
 				device.setFocusModeLockedWithLensPosition(focusValue, completionHandler: { time in
 					//
 				})
@@ -111,6 +115,7 @@ class CameraCaptureViewController: UIViewController {
 				})
 
 				device.unlockForConfiguration()
+			} catch _ {
 			}
 		}
 	}

@@ -61,13 +61,22 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 		let username = emailInput.text
 		let password = passwordInput.text
 		let url = login ? USER_AUTH_URL : USER_REG_URL
-		let json = JSON([USERNAME: username, PASSWORD: password])
+		let json = JSON([USERNAME: username!, PASSWORD: password!])
 		let posting = AsyncServerPost(url: url, json: json,
 			successHandler: { data, cookie in
 				NSOperationQueue.mainQueue().addOperationWithBlock({
-					let path = DOCUMENTS_DIR.stringByAppendingPathComponent(SC_FILE)
+					let path = DOCUMENTS_DIR.URLByAppendingPathComponent(SC_FILE).path!
 					var error: NSError?
-					let success = cookie!.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: &error)
+					let success: Bool
+					do {
+						try cookie!.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+						success = true
+					} catch let error1 as NSError {
+						error = error1
+						success = false
+					} catch {
+						fatalError()
+					}
 					if !success {
 						NSLog("Error: Failed to store session cookie. \(error)")
 						self.displayAlert("Error saving vital data. Error code: \(error?.code)") {
@@ -113,7 +122,7 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 	}
 
 	func displayAlert(msg: String, withClosure block: (() -> Void)?) {
-		var alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+		let alert = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 			alert.dismissViewControllerAnimated(true, completion: nil)
 			if block != nil {
