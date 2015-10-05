@@ -17,3 +17,20 @@ extension CALayer {
 		return UIColor(CGColor: self.borderColor!)
 	}
 }
+
+class PAUIButton : UIButton {
+	override var highlighted: Bool {
+		get {
+			return super.highlighted
+		}
+		set {
+			if newValue {
+				backgroundColor = UIColor(red: 0.792157, green: 1.0, blue: 0.698039, alpha: 1.0)
+			}
+			else {
+				backgroundColor = UIColor.whiteColor()
+			}
+			super.highlighted = newValue
+		}
+	}
+}

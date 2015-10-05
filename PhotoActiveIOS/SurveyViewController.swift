@@ -122,7 +122,7 @@ class SurveyViewController: UIViewController {
 			json[ANSWER] = JSON(answer!)
 		}
 
-		let photoOnly = iasurveyID != nil && answer != nil
+		let photoOnly = iasurveyID == nil && answer == nil
 		let url = photoOnly ? SUBMIT_PIC_URL : SUBMIT_APP_ANSWER_URL
 
 		let posting = AsyncServerPost(url: url, json: json, cookie: cookie,
@@ -138,7 +138,7 @@ class SurveyViewController: UIViewController {
 					self.loadIndicator?.stopAnimating()
 					let msgEnd = photoOnly ? "photo" : "photo and survey answer"
 					NSLog("Failed to submit \(msgEnd). Code = \(errorCode), message = \(data)")
-					self.displayUploadAlert("Could not to submit \(msgEnd).")
+					self.displayUploadAlert("Could not submit \(msgEnd).")
 				})
 		})
 		posting.execute()
