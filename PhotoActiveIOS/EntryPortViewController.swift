@@ -13,7 +13,29 @@ class EntryPortViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // start by checking photo library access
+		if PHPhotoLibrary.authorizationStatus() == .Authorized {
+			// if ok, continue initialization
+			startInitializing()
+		}
+		else {
+			// otherwise, request autorization and handle user response accordingly
+			PHPhotoLibrary.requestAuthorization() { status in
+				if status == .Authorized {
+					self.startInitializing()
+				}
+				else {
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						self.displayAlert("You must allow the app to access the Photos library or the app will not function properly.") {
+							exit(0)
+						}
+					})
+				}
+			}
+		}
+    }
+
+	func startInitializing() {
 		let qualityOfServiceClass = QOS_CLASS_BACKGROUND
 		let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
 		dispatch_async(backgroundQueue, {
@@ -26,7 +48,7 @@ class EntryPortViewController: UIViewController {
 				}
 				else {
 					if result == PHOTO_LIBRARY_NOT_AVAILABLE {
-						self.displayAlert("Cannot access photos, app will exit.") {
+						self.displayAlert("Could not create PhotoActive album in Photos library, app will exit.") {
 							exit(0)
 						}
 					}
@@ -45,7 +67,7 @@ class EntryPortViewController: UIViewController {
 				}
 			})
 		})
-    }
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,48 +77,36 @@ class EntryPortViewController: UIViewController {
 	func intializeApp() -> Int {
 		var result = NO_ERROR
 
-		// start by checking photo library access
-		if PHPhotoLibrary.authorizationStatus() != .Authorized {
-//			PHPhotoLibrary.requestAuthorization() { status in
-//				if status != .Authorized {
-					result = PHOTO_LIBRARY_NOT_AVAILABLE
-//				}
-//			}
+		// create a PhotoActive-album in the Photos library if not existing already
+		let fetchOptions = PHFetchOptions()
+		fetchOptions.predicate = NSPredicate(format: "title = %@", "PhotoActive")
+		let collection: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+
+		if collection.firstObject == nil {
+			PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+				PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle("PhotoActive")
+				},
+				completionHandler: { success, error in
+					if !success {
+						result = PHOTO_LIBRARY_NOT_AVAILABLE
+					}
+			})
 		}
-		// if ok, check project id and session cookie
-		else {
-			// also create folder in photos if not existing already
-			let fetchOptions = PHFetchOptions()
-			fetchOptions.predicate = NSPredicate(format: "title = %@", "PhotoActive")
-			let collection: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
 
-			if collection.firstObject == nil {
-				var albumPlaceholder: PHObjectPlaceholder!
-				PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-					let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle("PhotoActive")
-					albumPlaceholder = request.placeholderForCreatedAssetCollection
-					},
-					completionHandler: { success, error in
-						if !success {
-							result = PHOTO_LIBRARY_NOT_AVAILABLE
-						}
-				})
-			}
+		// check project id and session cookie
+		let projectID = getProjectID()
+		let sessionCookie = getSessionCookie()
 
-			let projectID = getProjectID()
-			let sessionCookie = getSessionCookie()
+		if (projectID.isEmpty && sessionCookie.isEmpty) {
+			result = INITIAL_START_UP
+		}
 
-			if (projectID.isEmpty && sessionCookie.isEmpty) {
-				result = INITIAL_START_UP
-			}
+		if (result == NO_ERROR && !isValidProjectID(projectID)) {
+			result = INVALID_PROJECT_ID
+		}
 
-			if (result == NO_ERROR && !isValidProjectID(projectID)) {
-				result = INVALID_PROJECT_ID
-			}
-
-			if (result == NO_ERROR && !isValidSessionCookie(sessionCookie)) {
-				result = NOT_AUTHENTICATED
-			}
+		if (result == NO_ERROR && !isValidSessionCookie(sessionCookie)) {
+			result = NOT_AUTHENTICATED
 		}
 
 		return result
