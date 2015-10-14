@@ -13,26 +13,26 @@ class EntryPortViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // start by checking photo library access
-		if PHPhotoLibrary.authorizationStatus() == .Authorized {
-			// if ok, continue initialization
-			startInitializing()
-		}
-		else {
-			// otherwise, request autorization and handle user response accordingly
-			PHPhotoLibrary.requestAuthorization() { status in
-				if status == .Authorized {
+//        // start by checking photo library access
+//		if PHPhotoLibrary.authorizationStatus() == .Authorized {
+//			// if ok, continue initialization
+//			startInitializing()
+//		}
+//		else {
+//			// otherwise, request autorization and handle user response accordingly
+//			PHPhotoLibrary.requestAuthorization() { status in
+//				if status == .Authorized {
 					self.startInitializing()
-				}
-				else {
-					dispatch_async(dispatch_get_main_queue(), { () -> Void in
-						self.displayAlert("You must allow the app to access the Photos library or the app will not function properly.") {
-							exit(0)
-						}
-					})
-				}
-			}
-		}
+//				}
+//				else {
+//					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//						self.displayAlert("You must allow the app to access the Photos library or the app will not function properly.") {
+//							exit(0)
+//						}
+//					})
+//				}
+//			}
+//		}
     }
 
 	func startInitializing() {
@@ -47,12 +47,12 @@ class EntryPortViewController: UIViewController {
 					self.performSegueWithIdentifier("MainMenuSegue", sender: self)
 				}
 				else {
-					if result == PHOTO_LIBRARY_NOT_AVAILABLE {
-						self.displayAlert("Could not create PhotoActive album in Photos library, app will exit.") {
-							exit(0)
-						}
-					}
-					else {
+//					if result == PHOTO_LIBRARY_NOT_AVAILABLE {
+//						self.displayAlert("Could not create PhotoActive album in Photos library, app will exit.") {
+//							exit(0)
+//						}
+//					}
+//					else {
 						switch result {
 						case NOT_AUTHENTICATED:
 							self.performSegueWithIdentifier("UserLoginSegue", sender: self)
@@ -63,7 +63,7 @@ class EntryPortViewController: UIViewController {
 						default:
 							self.performSegueWithIdentifier("ProjectRegistrationSegue", sender: self)
 						}
-					}
+//					}
 				}
 			})
 		})
@@ -77,21 +77,21 @@ class EntryPortViewController: UIViewController {
 	func intializeApp() -> Int {
 		var result = NO_ERROR
 
-		// create a PhotoActive-album in the Photos library if not existing already
-		let fetchOptions = PHFetchOptions()
-		fetchOptions.predicate = NSPredicate(format: "title = %@", "PhotoActive")
-		let collection: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
-
-		if collection.firstObject == nil {
-			PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-				PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle("PhotoActive")
-				},
-				completionHandler: { success, error in
-					if !success {
-						result = PHOTO_LIBRARY_NOT_AVAILABLE
-					}
-			})
-		}
+//		// create a PhotoActive-album in the Photos library if not existing already
+//		let fetchOptions = PHFetchOptions()
+//		fetchOptions.predicate = NSPredicate(format: "title = %@", "PhotoActive")
+//		let collection: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+//
+//		if collection.firstObject == nil {
+//			PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+//				PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle("PhotoActive")
+//				},
+//				completionHandler: { success, error in
+//					if !success {
+//						result = PHOTO_LIBRARY_NOT_AVAILABLE
+//					}
+//			})
+//		}
 
 		// check project id and session cookie
 		let projectID = getProjectID()

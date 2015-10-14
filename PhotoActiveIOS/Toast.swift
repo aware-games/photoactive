@@ -12,6 +12,7 @@ class Toast {
 	static let DEFAULT_MSG = "Default message"
 
 	let toast = UIAlertView(title: EMPTY, message: DEFAULT_MSG, delegate: nil, cancelButtonTitle: nil)
+//	let toast = UIAlertController(title: EMPTY, message: DEFAULT_MSG, preferredStyle: UIAlertControllerStyle.Alert)
 	var duration = 2.5
 
 	init(msg: String, duration: Double?) {
@@ -23,6 +24,7 @@ class Toast {
 
 	func show() {
 		toast.show()
+//		presentViewController(alert, animated: true, completion: nil)
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
 			self.toast.dismissWithClickedButtonIndex(0, animated: true)
 		})

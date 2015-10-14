@@ -367,6 +367,29 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 	}
 
 	@IBAction func takePhoto(sender: UIButton) {
+		// start by checking photo library access
+		if PHPhotoLibrary.authorizationStatus() == .Authorized {
+			// if ok, take photo
+			takePhoto2()
+		}
+		else {
+			// otherwise, request autorization and handle user response accordingly
+			PHPhotoLibrary.requestAuthorization() { status in
+				if status == .Authorized {
+					self.takePhoto2()
+				}
+				else {
+					dispatch_async(dispatch_get_main_queue(), { () -> Void in
+						self.displayAlert("You must allow the app to access the Photos library in order to continue.")
+					})
+				}
+			}
+		}
+	}
+
+	func takePhoto2() {
+		checkAlbumExists()
+
 		if UIImagePickerController.isSourceTypeAvailable(.Camera) {
 			imagePicker.delegate = self
 			imagePicker.sourceType = .Camera
@@ -377,6 +400,24 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 			NSLog("Error: Could not open camera, not available.")
 			NSOperationQueue.mainQueue().addOperationWithBlock({
 				self.displayAlert("Could not open camera.")
+			})
+		}
+	}
+
+	func checkAlbumExists() {
+		// create a PhotoActive-album in the Photos library if not existing already
+		let fetchOptions = PHFetchOptions()
+		fetchOptions.predicate = NSPredicate(format: "title = %@", "PhotoActive")
+		let collection: PHFetchResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+		
+		if collection.firstObject == nil {
+			PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+				PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle("PhotoActive")
+				},
+				completionHandler: { success, error in
+					if !success {
+//						result = PHOTO_LIBRARY_NOT_AVAILABLE
+					}
 			})
 		}
 	}
