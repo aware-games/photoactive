@@ -61,7 +61,7 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 		let username = emailInput.text
 		let password = passwordInput.text
 		let url = login ? USER_AUTH_URL : USER_REG_URL
-		let json = JSON([USERNAME: username!, PASSWORD: password!])
+		let json = JSON([USERNAME: username!, PASSWORD: password!, PROJECT_ID: getProjectID()])
 		let posting = AsyncServerPost(url: url, json: json,
 			successHandler: { data, cookie in
 				NSOperationQueue.mainQueue().addOperationWithBlock({
@@ -130,6 +130,17 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 			}
 		}))
 		presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	func getProjectID() -> String {
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(P_FILE).path!
+		let projectID = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+		if projectID != nil {
+			return projectID!
+		}
+		else {
+			return EMPTY
+		}
 	}
 
     /*
