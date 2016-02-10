@@ -70,7 +70,7 @@ class SurveyViewController: UIViewController {
 		if !updateUI() {
 			NSLog("Warning: Could not start SurveyViewController, first survey has faulty JSON.")
 			submitImageAndAnswer(nil, answer: nil) {
-				navigationController?.popToRootViewControllerAnimated(true)
+				self.navigationController?.popToRootViewControllerAnimated(true)
 			}
 		}
     }

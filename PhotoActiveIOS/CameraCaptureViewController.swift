@@ -46,7 +46,7 @@ class CameraCaptureViewController: UIViewController {
 			let alert = UIAlertController(title: "Error", message: "Could not open camera", preferredStyle: UIAlertControllerStyle.Alert)
 			alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
 				// Go back to the previous view controller
-				navigationController?.popViewControllerAnimated(true)
+				self.navigationController?.popViewControllerAnimated(true)
 			}))
 			self.presentViewController(alert, animated: true, completion: nil)
 		}
