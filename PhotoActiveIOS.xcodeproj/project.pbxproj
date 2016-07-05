@@ -16,6 +16,7 @@
 		5DDFC4BD1B6D4BF10053CEBA /* PhotoActiveIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4BC1B6D4BF10053CEBA /* PhotoActiveIOSTests.swift */; };
 		5DDFC4C71B6D541B0053CEBA /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4C61B6D541B0053CEBA /* InstructionsViewController.swift */; };
 		5DDFC4C91B6D64A80053CEBA /* CameraCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDFC4C81B6D64A80053CEBA /* CameraCaptureViewController.swift */; };
+		750F4BAD1D2BCD8600FBC9D6 /* ProjectRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750F4BAC1D2BCD8600FBC9D6 /* ProjectRegistrationViewController.swift */; };
 		75301F251B7205C200E047A4 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75301F241B7205C200E047A4 /* SwiftyJSON.swift */; };
 		75301F271B72096500E047A4 /* AsynServerPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75301F261B72096500E047A4 /* AsynServerPost.swift */; };
 		75301F291B720C4D00E047A4 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75301F281B720C4D00E047A4 /* ImageUtils.swift */; };
@@ -26,7 +27,6 @@
 		754AAA2E1B7B7B9300952FB3 /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754AAA2D1B7B7B9200952FB3 /* SurveyViewController.swift */; };
 		754C0F231B8733BD000CED1E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754C0F221B8733BD000CED1E /* Toast.swift */; };
 		754FD55A1B904CED0099FACD /* UIImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FD5591B904CED0099FACD /* UIImageExt.swift */; };
-		755622361B8DB74000A48B47 /* ProjectRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755622351B8DB74000A48B47 /* ProjectRegistrationViewController.swift */; };
 		7556552A1B8B3B970094DBDB /* EntryPortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755655291B8B3B970094DBDB /* EntryPortViewController.swift */; };
 		75797C0F1B8C770700AA9D5E /* UserRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75797C0E1B8C770600AA9D5E /* UserRegistrationViewController.swift */; };
 		7587B5C91B70ACB700061B1C /* SyncServerPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7587B5C81B70ACB700061B1C /* SyncServerPost.swift */; };
@@ -56,6 +56,7 @@
 		5DDFC4BC1B6D4BF10053CEBA /* PhotoActiveIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoActiveIOSTests.swift; sourceTree = "<group>"; };
 		5DDFC4C61B6D541B0053CEBA /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		5DDFC4C81B6D64A80053CEBA /* CameraCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCaptureViewController.swift; sourceTree = "<group>"; };
+		750F4BAC1D2BCD8600FBC9D6 /* ProjectRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectRegistrationViewController.swift; sourceTree = "<group>"; };
 		75301F241B7205C200E047A4 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		75301F261B72096500E047A4 /* AsynServerPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynServerPost.swift; sourceTree = "<group>"; };
 		75301F281B720C4D00E047A4 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		754AAA2D1B7B7B9200952FB3 /* SurveyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		754C0F221B8733BD000CED1E /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		754FD5591B904CED0099FACD /* UIImageExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExt.swift; sourceTree = "<group>"; };
-		755622351B8DB74000A48B47 /* ProjectRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectRegistrationViewController.swift; path = ../../../../.Trash/ProjectRegistrationViewController.swift; sourceTree = "<group>"; };
 		755655291B8B3B970094DBDB /* EntryPortViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryPortViewController.swift; sourceTree = "<group>"; };
 		75797C0E1B8C770600AA9D5E /* UserRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationViewController.swift; sourceTree = "<group>"; };
 		7587B5C81B70ACB700061B1C /* SyncServerPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncServerPost.swift; sourceTree = "<group>"; };
@@ -125,12 +125,12 @@
 				75464C821B734FCA002B359B /* ReviewCaptureViewController.swift */,
 				7548551A1B74928100828282 /* UIButtonExt.swift */,
 				754AAA2D1B7B7B9200952FB3 /* SurveyViewController.swift */,
-				755622351B8DB74000A48B47 /* ProjectRegistrationViewController.swift */,
 				755655291B8B3B970094DBDB /* EntryPortViewController.swift */,
 				75797C0E1B8C770600AA9D5E /* UserRegistrationViewController.swift */,
 				754FD5591B904CED0099FACD /* UIImageExt.swift */,
 				7537C6EA1B986DB200BE71DD /* NSDateExt.swift */,
 				754942401B99A38D005F27E0 /* PostponeAlarmViewController.swift */,
+				750F4BAC1D2BCD8600FBC9D6 /* ProjectRegistrationViewController.swift */,
 			);
 			path = PhotoActiveIOS;
 			sourceTree = "<group>";
@@ -278,7 +278,6 @@
 				754C0F231B8733BD000CED1E /* Toast.swift in Sources */,
 				7548551B1B74928100828282 /* UIButtonExt.swift in Sources */,
 				5DDFC4A91B6D4BF10053CEBA /* MainMenuViewController.swift in Sources */,
-				755622361B8DB74000A48B47 /* ProjectRegistrationViewController.swift in Sources */,
 				5DDFC4A71B6D4BF10053CEBA /* PhotoActiveIOS.xcdatamodeld in Sources */,
 				75301F291B720C4D00E047A4 /* ImageUtils.swift in Sources */,
 				5DDFC4C71B6D541B0053CEBA /* InstructionsViewController.swift in Sources */,
@@ -290,6 +289,7 @@
 				754942411B99A38E005F27E0 /* PostponeAlarmViewController.swift in Sources */,
 				75301F251B7205C200E047A4 /* SwiftyJSON.swift in Sources */,
 				7587B5C91B70ACB700061B1C /* SyncServerPost.swift in Sources */,
+				750F4BAD1D2BCD8600FBC9D6 /* ProjectRegistrationViewController.swift in Sources */,
 				754FD55A1B904CED0099FACD /* UIImageExt.swift in Sources */,
 				754AAA2E1B7B7B9300952FB3 /* SurveyViewController.swift in Sources */,
 				7556552A1B8B3B970094DBDB /* EntryPortViewController.swift in Sources */,
@@ -426,12 +426,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PhotoActiveIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fi.awaregames.ios.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SERVER_URL = "http://192.168.1.3:8080";
+				SERVER_URL = "http://192.168.100.11:8080";
 			};
 			name = Debug;
 		};
@@ -442,7 +442,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PhotoActiveIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fi.awaregames.ios.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
