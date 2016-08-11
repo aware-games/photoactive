@@ -35,7 +35,7 @@ class SurveyViewController: UIViewController {
 		self.view.addSubview(loadIndicator!)
 		loadIndicator!.bringSubviewToFront(self.view)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "onScreenRotation", name: UIDeviceOrientationDidChangeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SurveyViewController.onScreenRotation), name: UIDeviceOrientationDidChangeNotification, object: nil)
 
 		slider.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
 
@@ -129,8 +129,9 @@ class SurveyViewController: UIViewController {
 			successHandler: { data, cookie in
 				NSOperationQueue.mainQueue().addOperationWithBlock({
 					self.loadIndicator?.stopAnimating()
-					Toast(msg: "Answer submitted", duration: nil).show()
-					self.navigationController?.popToRootViewControllerAnimated(true)
+					Toast(msg: "Answer submitted", duration: nil, viewController: self).show({
+						self.navigationController?.popToRootViewControllerAnimated(true)
+					})
 				})
 			},
 			errorHandler: { errorCode, data in

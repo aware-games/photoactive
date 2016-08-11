@@ -34,7 +34,7 @@ class UserRegistrationViewController: UIViewController, UITextFieldDelegate {
 		self.view.addSubview(loadIndicator!)
 		loadIndicator!.bringSubviewToFront(self.view)
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "onScreenRotation", name: UIDeviceOrientationDidChangeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserRegistrationViewController.onScreenRotation), name: UIDeviceOrientationDidChangeNotification, object: nil)
 		updateUITexts()
     }
 

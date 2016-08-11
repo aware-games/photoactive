@@ -13,9 +13,9 @@ extension UIImage {
 		let newWidth = resize ? size.height : size.width
 		let newHeight = resize ? size.width : size.height
 
-		let radiansToDegrees: (CGFloat) -> CGFloat = {
-			return $0 * (180.0 / CGFloat(M_PI))
-		}
+//		let radiansToDegrees: (CGFloat) -> CGFloat = {
+//			return $0 * (180.0 / CGFloat(M_PI))
+//		}
 
 		let degreesToRadians: (CGFloat) -> CGFloat = {
 			return $0 / 180.0 * CGFloat(M_PI)

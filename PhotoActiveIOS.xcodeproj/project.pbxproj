@@ -431,7 +431,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "fi.awaregames.ios.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SERVER_URL = "http://192.168.100.11:8080";
+				SERVER_URL = "http://192.168.100.10:8080";
 			};
 			name = Debug;
 		};

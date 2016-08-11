@@ -62,7 +62,7 @@ class ImageUtils {
 			let totalReqPixelsCap = reqWidth * reqHeight * 2
 
 			while totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap {
-				inSampleSize++
+				inSampleSize += 1
 			}
 		}
 

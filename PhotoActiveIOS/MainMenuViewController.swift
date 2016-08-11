@@ -26,7 +26,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		self.view.addSubview(loadIndicator!)
 		loadIndicator!.bringSubviewToFront(self.view)
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "onScreenRotation", name: UIDeviceOrientationDidChangeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainMenuViewController.onScreenRotation), name: UIDeviceOrientationDidChangeNotification, object: nil)
 
 		getInAppSurveys()
 		getSurveyAlarms()
@@ -222,7 +222,7 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 		let startDay = startComp.day
 
 		// Iterate over alarm times to create alarms
-		for var i = 0; i < length; i++ {
+		for i in 0 ..< length {
 			let time = NSDate(timeIntervalSince1970: timesData[i].doubleValue / 1000)
 			let cal = NSCalendar.currentCalendar()
 			let com = cal.components([.Hour, .Minute], fromDate: time)

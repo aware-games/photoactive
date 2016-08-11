@@ -11,22 +11,28 @@ import UIKit
 class Toast {
 	static let DEFAULT_MSG = "Default message"
 
-	let toast = UIAlertView(title: EMPTY, message: DEFAULT_MSG, delegate: nil, cancelButtonTitle: nil)
-//	let toast = UIAlertController(title: EMPTY, message: DEFAULT_MSG, preferredStyle: UIAlertControllerStyle.Alert)
+//	let toast = UIAlertView(title: EMPTY, message: DEFAULT_MSG, delegate: nil, cancelButtonTitle: nil)
+	let toast = UIAlertController(title: EMPTY, message: DEFAULT_MSG, preferredStyle: UIAlertControllerStyle.Alert)
 	var duration = 2.5
+	var viewController: UIViewController
 
-	init(msg: String, duration: Double?) {
+	init(msg: String, duration: Double?, viewController: UIViewController) {
 		toast.message = msg
 		if duration != nil {
 			self.duration = duration!
 		}
+		self.viewController = viewController
 	}
 
-	func show() {
-		toast.show()
-//		presentViewController(alert, animated: true, completion: nil)
+	func show(completion: (() -> Void)?) {
+//		toast.show()
+		viewController.presentViewController(toast, animated: true, completion: nil)
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(duration * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-			self.toast.dismissWithClickedButtonIndex(0, animated: true)
+//			self.toast.dismissWithClickedButtonIndex(0, animated: true)
+			self.toast.dismissViewControllerAnimated(true, completion: nil)
+			if completion != nil {
+				completion!()
+			}
 		})
 	}
 }
