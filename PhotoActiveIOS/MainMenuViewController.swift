@@ -53,6 +53,11 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 			destController?.pictureName = self.pictureName
 			loadIndicator!.stopAnimating()
 		}
+		else if segue.identifier == "UploadPictureSegue" {
+			let destController = segue.destinationViewController as? UploadPictureViewController
+			destController?.pictureName = self.pictureName
+			loadIndicator!.stopAnimating()
+		}
 	}
 
 	// MARK: - Misc
@@ -334,7 +339,12 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 			completionHandler: { success, error in
 				if success {
 					NSOperationQueue.mainQueue().addOperationWithBlock({
-						self.performSegueWithIdentifier("SurveySegue", sender: self)
+						if self.showInAppSurveys() {
+							self.performSegueWithIdentifier("SurveySegue", sender: self)
+						}
+						else {
+							self.performSegueWithIdentifier("UploadPictureSegue", sender: self)
+						}
 					})
 				}
 				else {
@@ -420,5 +430,19 @@ class MainMenuViewController: UIViewController, UINavigationControllerDelegate, 
 					}
 			})
 		}
+	}
+	
+	func showInAppSurveys() -> Bool {
+		let path = DOCUMENTS_DIR.URLByAppendingPathComponent(IAS_FILE).path!
+		let inAppSurveys = try? String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+		if inAppSurveys != nil && !(inAppSurveys?.isEmpty)! {
+			if let dataFromString = inAppSurveys?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+				let inAppSurveysObj = JSON(data: dataFromString)[IN_APP_SURVEYS]
+				if inAppSurveysObj != nil && inAppSurveysObj[0].count > 0 {
+					return true
+				}
+			}
+		}
+		return false
 	}
 }

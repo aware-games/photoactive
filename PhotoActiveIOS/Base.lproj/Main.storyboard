@@ -132,6 +132,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="dvm-JT-XV0" kind="show" identifier="SurveySegue" id="6kz-M6-8Ia"/>
+                        <segue destination="wun-Cw-zko" kind="show" identifier="UploadPictureSegue" id="Nu1-Jk-8ox"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -969,12 +970,56 @@
             </objects>
             <point key="canvasLocation" x="274" y="349"/>
         </scene>
+        <!--Upload picutre-->
+        <scene sceneID="qRR-X9-pec">
+            <objects>
+                <viewController title="Upload picutre" automaticallyAdjustsScrollViewInsets="NO" id="wun-Cw-zko" customClass="UploadPictureViewController" customModule="PhotoActive" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cSE-xs-Mtq"/>
+                        <viewControllerLayoutGuide type="bottom" id="FN6-cG-cmZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xvY-yH-1Rw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uploading picture..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roG-Kn-hz1">
+                                <rect key="frame" x="237" y="291" width="127" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="OUG-MC-vAk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OUG-MC-vAk"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <mask key="constraints">
+                                        <include reference="OUG-MC-vAk"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="roG-Kn-hz1" firstAttribute="centerX" secondItem="xvY-yH-1Rw" secondAttribute="centerX" id="36d-k4-blM"/>
+                            <constraint firstItem="roG-Kn-hz1" firstAttribute="centerY" secondItem="xvY-yH-1Rw" secondAttribute="centerY" id="sjO-vU-rfd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6lw-LZ-MxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="746" y="1847"/>
+        </scene>
     </scenes>
     <resources>
         <image name="smiley_4" width="72" height="72"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="fkm-jA-n4Z"/>
         <segue reference="aIh-sr-R5u"/>
-        <segue reference="1wE-6X-AZx"/>
     </inferredMetricsTieBreakers>
 </document>
